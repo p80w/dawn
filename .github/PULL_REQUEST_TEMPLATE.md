@@ -1,43 +1,39 @@
-### PR Summary: 
+## Description
 
-<!-- Please include a short description (using non-technical terms, 1-2 sentences) about the changes you are introducing, what problem is being fixed and/or describe the benefit to merchants. This content will be used in our release notes for Dawn on [themes.shopify.com](https://themes.shopify.com/themes/dawn/styles/default#ReleaseNotes). -->
+### 1. What does this code change do? 
 
+### 2. Why was it required?
 
-### Why are these changes introduced?
+## Usage
 
-Fixes #0.
+If applicable, how do we use this component? OR how does the client control this feature? (ie. Theme settings...etc. etc)
 
-### What approach did you take?
+## Testing scenarios/steps to reproduce bugs
+- [ ] _List all the steps to reproduce the bug OR testing scenarios that apply to your fix and help peers to review your work._
 
-### Other considerations
-
-### Decision log
-
-| # | Decision | Alternatives | Rationale | Downsides |
-|---|---|---|---|---|
-| 1 |   |   |   |   |
-
-
-### Visual impact on existing themes
-<!-- How will this visually affect merchants who upgrade to a new theme version with this change? -->
-
-
-### Testing steps/scenarios
-<!-- List all the testing tasks that applies to your fix to help peers review your work. -->
-- [ ] Step 1
-
-### Demo links
-<!-- Please include a link to a demo store that includes preconfigured sections and settings to allow reviewers to easily test the features you are working on. -->
+## Demo links
+_Please include a link to a store that includes preconfigured sections and settings to allow reviewers to easily test the features you are working on._
 
 - [Store](url)
-- [Editor](url)
 
-### Checklist
-- [ ] Added PR summary for [release notes](https://themes.shopify.com/themes/dawn/styles/default#ReleaseNotes)
-- [ ] Requested review from UX (Only for changes that are affecting the experience or perceivable visual details)
-- [ ] Created a ticket for the [help.shopify.com](https://help.shopify.com) documentation team about updates to theme settings. (Internal-only task)
+**Checklist For Shopify Theme Development** 
+Used for Shopify themes only. Can be removed if it does not apply. (ie. simple copy change, font change, small layout change).
 - [ ] Followed [theme code principles](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles)
 - [ ] Linted with [Theme Check](https://github.com/Shopify/theme-check)
 - [ ] Tested on [mobile](https://shopify.dev/themes/store/requirements#mobile-browser-requirements)
 - [ ] Tested on [multiple browsers](https://shopify.dev/themes/store/requirements#desktop-browser-requirements)
 - [ ] Tested for [accessibility](https://shopify.dev/themes/best-practices/accessibility)
+
+## UI
+
+If applicable, attach screenshots of the before/after state of your code change. Or, if this is a new component, attach screenshots of what the component should look like in its base implementation.
+
+## Documentation
+
+- [ ] **readme.md** updated if the task is tagged with **doc** or the body of the task requests updating the _readme.md_
+
+## Task Reference
+
+Please include a URL to where the task for this code change lives. The task will likely contain the information required to properly review your PR.
+
+[URL title](URL)
