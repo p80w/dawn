@@ -1,99 +1,205 @@
-# Dawn
+# P80 Dawn Template 
+Based on [DAWN](https://github.com/Shopify/dawn)
 
-[![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=informational)](/.github/CONTRIBUTING.md)
+# Contributing Guidelines
 
-[Getting started](#getting-started) |
-[Staying up to date with Dawn changes](#staying-up-to-date-with-dawn-changes) |
-[Developer tools](#developer-tools) |
-[Contributing](#contributing) |
-[Code of conduct](#code-of-conduct) |
-[Theme Store submission](#theme-store-submission) |
-[License](#license)
+## Branches and Naming Conventions
 
-Dawn represents a HTML-first, JavaScript-only-as-needed approach to theme development. It's Shopify's first source available theme with performance, flexibility, and [Online Store 2.0 features](https://www.shopify.com/partners/blog/shopify-online-store) built-in and acts as a reference for building Shopify themes.
+### Branches
 
-* **Web-native in its purest form:** Themes run on the [evergreen web](https://www.w3.org/2001/tag/doc/evergreen-web/). We leverage the latest web browsers to their fullest, while maintaining support for the older ones through progressive enhancement—not polyfills.
-* **Lean, fast, and reliable:** Functionality and design defaults to “no” until it meets this requirement. Code ships on quality. Themes must be built with purpose. They shouldn’t support each and every feature in Shopify.
-* **JavaScript not required, fails gracefully:** We extract every bit of speed and functionality out of HTTP, semantic HTML, and CSS before writing our first line of JavaScript. JavaScript can only be used to progressively enhance features.
-* **Server-rendered:** HTML must be rendered by Shopify servers using Liquid. Business logic and platform primitives such as translations and money formatting don’t belong on the client. Async and on-demand rendering of parts of the page is OK, but we do it sparingly as a progressive enhancement.
-* **Functional, not pixel-perfect:** The Web doesn’t require each page to be rendered pixel-perfect by each browser engine. Using semantic markup, progressive enhancement, and clever design, we ensure that themes remain functional regardless of the browser.
+_Every_ code update should have its own branch. No work should be done on the `main`/`master` branch.
 
-You can find a more detailed version of our theme code principles in the [contribution guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles).
+Branches should have an easy-to-understand and _relevant_ name. When applicable, the branch for your work should mirror the title of the assigned task in Asana (or the project management tool it was created in).
 
-## Getting started
+#### For example:
 
-We recommend using Dawn as a starting point for theme development. [Learn more on Shopify.dev](https://shopify.dev/themes/getting-started/create). 
+Asana Task - `Component - Recently Viewed Products`
 
-> If you're building a theme for the Shopify Theme Store, then you can use Dawn as a starting point. However, the theme that you submit needs to be [substantively different from Dawn](https://shopify.dev/themes/store/requirements#uniqueness) so that it provides added value for merchants. Learn about the [ways that you can use Dawn](https://shopify.dev/themes/tools/dawn#ways-to-use-dawn).
+Branch name: `component-recently-viewed-products`
 
-## Staying up to date with Dawn changes
+### File / Folder / Code Naming
 
-Say you're building a new theme off Dawn but you still want to be able to pull in the latest changes, you can add a remote `upstream` pointing to this Dawn repository.
+File names & folder names should be dash-separated.
 
-1. Navigate to your local theme folder.
-2. Verify the list of remotes and validate that you have both an `origin` and `upstream`:
-```sh
-git remote -v
+File naming should follow Shopify's naming system. Here are a few examples.
+
+#### Example A: We are creating a new `section`
+`sections/your-section-title.liquid` || `sections/faq-list.liquid`
+
+`assets/section-your-section-title.css` || `assets/section-faq-list.css`
+
+`assets/section-your-section-title.js` || `assets/section-faq-list.js`
+
+#### Example B: We are creating a new `snippet`
+`snippets/your-snippet-title.liquid` || `snippets/custom-pricing.liquid`
+
+`assets/component-your-snippet-title.css` || `assets/component-custom-pricing.css`
+
+`assets/component-your-snippet-title.js` || `assets/component-custom-pricing.js`
+
+### Variable and function names should be `camelCase`
+
+#### For example:
+
+`p80.productHistory = function(config) {};`
+
+`let productHistory;`
+
+### JavaScript Conventions
+
+When considering JavaScript code there are two acceptable methods of work. [Prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain) based components, and [Class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) based components. `Class` based components are what Shopify has typically adopted for their general DAWN components.
+
+`Class` & `Prototype` based components are essentially identical - however `Class` based components are more recent, and support more tight-knight integration with the DOM. In the author's *opinion*, `Class` based components excel for simple, reuseable components whereas `Protoype` lends itself better to more complicated implementations. In the end, identical results are achievable with both.
+
+For all applicable custom components/JavaScript using the `Prototype` format, we will be using the namespace `p80`. Each component should check if the namespace has already been initalized before declaring any other code.
+
+#### For example:
+
 ```
-3. If you don't see an `upstream`, you can add one that points to Shopify's Dawn repository:
-```sh
-git remote add upstream https://github.com/Shopify/dawn.git
-```
-4. Pull in the latest Dawn changes into your repository:
-```sh
-git fetch upstream
-git pull upstream main
-```
-
-## Developer tools
-
-There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
-
-### Shopify CLI
-
-[Shopify CLI](https://github.com/Shopify/shopify-cli) helps you build Shopify themes faster and is used to automate and enhance your local development workflow. It comes bundled with a suite of commands for developing Shopify themes—everything from working with themes on a Shopify store (e.g. creating, publishing, deleting themes) or launching a development server for local theme development.
-
-You can follow this [quick start guide for theme developers](https://github.com/Shopify/shopify-cli#quick-start-guide-for-theme-developers) to get started.
-
-### Theme Check
-
-We recommend using [Theme Check](https://github.com/shopify/theme-check) as a way to validate and lint your Shopify themes.
-
-We've added Theme Check to Dawn's [list of VS Code extensions](/.vscode/extensions.json) so if you're using Visual Studio Code as your code editor of choice, you'll be prompted to install the [Theme Check VS Code](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode) extension upon opening VS Code after you've forked and cloned Dawn.
-
-You can also run it from a terminal with the following Shopify CLI command:
-
-```bash
-shopify theme check
+if(typeof p80 === typeof undefined) {
+    var p80 = {};
+}
+p80.productHistory = function(config) {};
 ```
 
-### Continuous Integration
+When creating a `Class` based component you are still required to adhere to the above mentioned coding guidelines for things like variable naming, file & folder structure, and you should almost always avoid any global variable or function definitions outside of your main component definition whenever possible.
 
-Dawn uses [GitHub Actions](https://github.com/features/actions) to maintain the quality of the theme. [This is a starting point](https://github.com/Shopify/dawn/blob/main/.github/workflows/ci.yml) and what we suggest to use in order to ensure you're building better themes. Feel free to build off of it!
+Here is an example of a `Class` based component from DAWN that is re-useable by simply copying the relevant DOM code
 
-#### Shopify/lighthouse-ci-action
+```
+class QuantityInput extends HTMLElement {
+  constructor() {
+    super();
+    this.input = this.querySelector('input');
+    this.changeEvent = new Event('change', { bubbles: true })
 
-We love fast websites! Which is why we created [Shopify/lighthouse-ci-action](https://github.com/Shopify/lighthouse-ci-action). This runs a series of [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) audits for the home, product and collections pages on a store to ensure code that gets added doesn't degrade storefront performance over time.
+    this.querySelectorAll('button').forEach(
+      (button) => button.addEventListener('click', this.onButtonClick.bind(this))
+    );
+  }
 
-#### Shopify/theme-check-action
+  onButtonClick(event) {
+    event.preventDefault();
+    const previousValue = this.input.value;
 
-Dawn runs [Theme Check](#Theme-Check) on every commit via [Shopify/theme-check-action](https://github.com/Shopify/theme-check-action).
+    event.target.name === 'plus' ? this.input.stepUp() : this.input.stepDown();
+    if (previousValue !== this.input.value) this.input.dispatchEvent(this.changeEvent);
+  }
+}
 
-## Contributing
+customElements.define('quantity-input', QuantityInput);
+```
 
-Want to make commerce better for everyone by contributing to Dawn? We'd love your help! Please read our [contributing guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md) to learn about our development process, how to propose bug fixes and improvements, and how to build for Dawn.
+## Pull Requests
 
-## Code of conduct
+Each pull request should contain all information required for someone to understand the _purpose_ of your code change. This includes the original bug/request, and the steps taken in your code changes to rectify the bug or implement the request.
 
-All developers who wish to contribute through code or issues, please first read our [Code of Conduct](https://github.com/Shopify/dawn/blob/main/.github/CODE_OF_CONDUCT.md).
+### Pull Request Title
 
-## Theme Store submission
+The title of your pull request should reflect the name of the task, as well as the type of work being done.
 
-The [Shopify Theme Store](https://themes.shopify.com/) is the place where Shopify merchants find the themes that they'll use to showcase and support their business. As a theme partner, you can create themes for the Shopify Theme Store and reach an international audience of an ever-growing number of entrepreneurs.
+`Create` for creating new code.
 
-Ensure that you follow the list of [theme store requirements](https://shopify.dev/themes/store/requirements) if you're interested in becoming a [Shopify Theme Partner](https://themes.shopify.com/services/themes/guidelines) and building themes for the Shopify platform.
+`Update` for adding functionality to existing code.
 
-## License
+`Bugfix` for fixing bugs in existing code.
 
-Copyright (c) 2021-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.
+#### For example:
+
+`Create - productHistory component`
+
+OR
+
+`Update - productHistory component history tracking`
+
+OR
+
+`Bugfix - productHistory component mobile styles`
+
+Each pull request should also follow this general format:
+
+```
+## Description
+
+// What does this code change do? Why was it required?
+
+## Usage
+
+// If applicable, how do we use this component? OR how does the client control this feature? (ie. Theme settings...etc. etc)
+
+## Testing steps/scenarios
+- [ ] _List all the testing tasks that applies to your fix and help peers to review your work._
+
+## Demo links
+_Please include a link to a store that includes preconfigured sections and settings to allow reviewers to easily test the features you are working on._
+
+- [Store](url)
+- [Editor](url)
+
+**Checklist For Shopify Theme Development** 
+Used for Shopify themes only. Can be removed if it does not apply.
+- [ ] Followed [theme code principles](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles)
+- [ ] Linted with [Theme Check](https://github.com/Shopify/theme-check)
+- [ ] Tested on [mobile](https://shopify.dev/themes/store/requirements#mobile-browser-requirements)
+- [ ] Tested on [multiple browsers](https://shopify.dev/themes/store/requirements#desktop-browser-requirements)
+- [ ] Tested for [accessibility](https://shopify.dev/themes/best-practices/accessibility)
+
+## UI
+
+// If applicable, attach screenshots of the before/after state of your code change. Or, if this is a new component, attach screenshots of what the component should look like in its base implementation.
+
+## Documentation
+
+- [ ] Appropriate docs were updated (if necessary)
+
+## Task Reference
+
+// Please include a URL to where the task for this code change lives. The task will likely contain the information required to properly review your PR.
+
+// [Component - Recently Viewed Products](https://app.asana.com/0/0/1201362516732595/f)
+// [URL title](URL)
+```
+
+### Squash & Merge
+
+With Squash & Merge enabled you will be asked to provide one commit message that will be pushed to master/main on merging. This saves us the clutter of having dozens of new commits listed on the main branch every time we merge a PR.
+
+This commit message should be _informative_ and reflect the scope of the work being done.
+
+#### For example:
+
+`create productHistory component`
+
+OR
+
+`update logic bug in productHistory component`
+
+OR
+
+`update base styles in productHistory component`
+
+Once your pull request has been merged, please delete the original branch (If it has not been automatically deleted).
+
+## P80 Included Components
+
+### Product Recommendations
+
+This theme includes the [P80 Product Recommendations](https://github.com/p80w/shopify-code-snippets/tree/master/p80-product-recommendations) component extension.
+
+This component works alongside the default product recommendations and will supercede the default Shopify recommendations when properly configured.
+
+#### Setup
+
+1) Create a storefront token and save it to p80.storefrontToken in `theme.liquid`
+```
+<script>
+  if(typeof p80 === typeof undefined) {
+    var p80 = {};
+  }
+  p80.storefrontToken = "aa8132c06be4596d4ef706b3cc37d6c9";
+</script>
+```
+2) Create a product metafield for holding related products `p80.relatedProducts`
+3) Populate the metafield on applicable products with a pipe `|` deliminated string of Product IDs e.g. `123456789|234567890|345678901`
+
+After all above steps have been completed, the P80 Product Recommendations component should render in place of the default Shopify product recommendations.

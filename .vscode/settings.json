@@ -1,0 +1,24 @@
+{
+    "themeCheck.onlySingleFileChecks": true,
+    "shopifyLiquid.trace.server": "verbose",
+    "themeCheck.checkOnChange": false,
+    "themeCheck.checkOnOpen": false,
+    "themeCheck.checkOnSave": false,
+    "javascript.preferences.quoteStyle": "single",
+    "prettier.jsxSingleQuote": true,
+    "prettier.singleQuote": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "eslint.alwaysShowStatus": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "javascript.validate.enable": false,
+    "files.associations": {
+      "*.scss.liquid": "scss",
+      "*.js.liquid": "javascript"
+    },
+    "shopifyLiquid.formatterDevPreview": true,
+    "[liquid]": {
+      "editor.defaultFormatter": "Shopify.theme-check-vscode",
+      "editor.formatOnSave": true
+    }
+  }
